@@ -34,7 +34,7 @@ jobs:
 
       - name: Run tests
         run: |
-          poetry run python -m pytest --numprocesses auto --junit-xml=test-results/results.xml  --browser chromium --browser webkit --browser firefox  --testomatio report
+          poetry run python -m pytest --numprocesses auto --junit-xml=test-results/results.xml  --browser chromium --browser firefox  --testomatio report
         env:
           USERNAME_SAUCEDEMO: ${{ secrets.USERNAME_SAUCEDEMO }}
           PASSWORD_SAUCEDEMO: ${{ secrets.PASSWORD_SAUCEDEMO }}

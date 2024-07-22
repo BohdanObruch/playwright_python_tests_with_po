@@ -13,7 +13,7 @@ def pytest_addoption(parser):
     parser.addoption("--base_url", action="store", default="https://www.saucedemo.com/", help="url to test")
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 def page(browser):
     context = browser.new_context(
         viewport={'width': 1280, 'height': 1024}
