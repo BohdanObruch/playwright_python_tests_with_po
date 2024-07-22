@@ -43,7 +43,7 @@ jobs:
 
       - name: Generate Pretty Report
         run: |
-          npx github-actions-ctrf test-results/report.json
+          npx github-actions-ctrf report.json
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
