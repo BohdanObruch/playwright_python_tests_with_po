@@ -41,6 +41,10 @@ jobs:
           TESTOMATIO: ${{ secrets.TESTOMATIO }}
         continue-on-error: true
 
+      - name: Generate Pretty Report
+        run: |
+          npx github-actions-ctrf test-results/report.json
+
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
