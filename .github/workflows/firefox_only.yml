@@ -1,0 +1,48 @@
+name: Run tests only with Firefox
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 5 * * *'
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.12
+
+
+      - name: Install Poetry
+        run:
+            curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Install dependencies
+        run: |
+          poetry install
+      
+
+      - name: Install Playwright browsers
+        run: |
+            poetry run playwright install firefox
+
+      - name: Run tests
+        run: |
+          poetry run python -m pytest -m --numprocesses $PROCESSES --junit-xml=test-results/results.xml --browser firefox  --testomatio report
+        env:
+          USERNAME_SAUCEDEMO: ${{ secrets.USERNAME_SAUCEDEMO }}
+          PASSWORD_SAUCEDEMO: ${{ secrets.PASSWORD_SAUCEDEMO }}
+          TESTOMATIO: ${{ secrets.TESTOMATIO }}
+        continue-on-error: true
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-traces
+          path: test-results/
