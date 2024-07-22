@@ -38,7 +38,8 @@ jobs:
         env:
           USERNAME_SAUCEDEMO: ${{ secrets.USERNAME_SAUCEDEMO }}
           PASSWORD_SAUCEDEMO: ${{ secrets.PASSWORD_SAUCEDEMO }}
-          TESTOMATIO: ${{ secrets.TESTOMATIO }}
+          TESTOMATIO: ${{ github.event.inputs.testomatio }}
+          TESTOMATIO_RUN: ${{ github.event.inputs.run }}
         continue-on-error: true
 
       - name: Generate Pretty Report
