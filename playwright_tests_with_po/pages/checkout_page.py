@@ -2,16 +2,16 @@ from .shopping_cart_page import ShoppingCartPage
 
 
 class CheckoutPage(ShoppingCartPage):
-    def __init__(self, page, base_url):
-        super().__init__(page, base_url)
+    def __init__(self, page):
+        super().__init__(page)
         self.url = '/checkout-step-one.html'
-        self.item_total_price = self.page.locator('[data-test="subtotal-label"]')
-        self.tax_price = self.page.locator('[data-test="tax-label"]')
-        self.total_price = self.page.locator('[data-test="total-label"]')
-        self.first_name = self.page.locator('#first-name')
-        self.last_name = self.page.locator('#last-name')
-        self.zip_code = self.page.locator('#postal-code')
-        self.continue_button = self.page.locator('#continue')
+        self.item_total_price = page.locator('[data-test="subtotal-label"]')
+        self.tax_price = page.locator('[data-test="tax-label"]')
+        self.total_price = page.locator('[data-test="total-label"]')
+        self.first_name = page.locator('#first-name')
+        self.last_name = page.locator('#last-name')
+        self.zip_code = page.locator('#postal-code')
+        self.continue_button = page.locator('#continue')
 
     def fill_checkout_form(self, first_name, last_name, zip_code):
         self.first_name.fill(first_name)

@@ -2,16 +2,16 @@ from .base_swag_lab_page import BaseSwagLabPage
 
 
 class ShoppingCartPage(BaseSwagLabPage):
-    def __init__(self, page, base_url):
-        super().__init__(page, base_url)
+    def __init__(self, page):
+        super().__init__(page)
         self.url = '/cart.html'
-        self.cart_items = self.page.locator('.cart_item')
-        self.remove_item = self.page.locator('[id^="remove"]')
-        self.items_name = self.page.locator('.inventory_item_name')
-        self.items_price = self.page.locator('.inventory_item_price')
-        self.items_description = self.page.locator('.inventory_item_desc')
-        self.checkout_button = self.page.locator('#checkout')
-        self.header_title = self.page.locator('.title')
+        self.cart_items = page.locator('.cart_item')
+        self.remove_item = page.locator('[id^="remove"]')
+        self.items_name = page.locator('.inventory_item_name')
+        self.items_price = page.locator('.inventory_item_price')
+        self.items_description = page.locator('.inventory_item_desc')
+        self.checkout_button = page.locator('#checkout')
+        self.header_title = page.locator('.title')
 
     def get_cart_item(self):
         return self.cart_items

@@ -1,5 +1,7 @@
-import pytest
+from typing import Generator
 
+import pytest
+from playwright.sync_api import Page, BrowserContext
 from playwright_tests_with_po.pages.login_page import LoginPage
 from playwright_tests_with_po.pages.inventory_page import InventoryPage
 from playwright_tests_with_po.pages.shopping_cart_page import ShoppingCartPage
@@ -9,44 +11,44 @@ from playwright_tests_with_po.pages.checkout_page import CheckoutPage
 from playwright_tests_with_po.test_data.credentials import standard_user
 
 
-def pytest_addoption(parser):
-    parser.addoption("--base_url", action="store", default="https://www.saucedemo.com/", help="url to test")
-
-
 @pytest.fixture(scope="session")
-def page(browser):
-    context = browser.new_context(
-        viewport={'width': 1280, 'height': 1024}
+def browser_context_args(browser_context_args):
+    return {
+        **browser_context_args,
+        "viewport": {"width": 1920, "height": 1080},
+    }
 
-    )
-    page = context.new_page()
+
+@pytest.fixture(autouse=True)
+def page(page:Page):
     yield page
-    context.close()
+    page.close()
 
-
-@pytest.fixture
-def login(page, base_url):
-    return LoginPage(page, base_url)
 
 
 @pytest.fixture
-def inventory(page, base_url):
-    return InventoryPage(page, base_url)
+def login(page):
+    return LoginPage(page)
 
 
 @pytest.fixture
-def shopping_cart(page, base_url):
-    return ShoppingCartPage(page, base_url)
+def inventory(page):
+    return InventoryPage(page)
 
 
 @pytest.fixture
-def base_swag_lab(page, base_url):
-    return BaseSwagLabPage(page, base_url)
+def shopping_cart(page):
+    return ShoppingCartPage(page)
 
 
 @pytest.fixture
-def checkout(page, base_url):
-    return CheckoutPage(page, base_url)
+def base_swag_lab(page):
+    return BaseSwagLabPage(page)
+
+
+@pytest.fixture
+def checkout(page):
+    return CheckoutPage(page)
 
 
 @pytest.fixture(autouse=True)

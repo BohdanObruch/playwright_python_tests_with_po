@@ -7,13 +7,13 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-pytest-playwright = "^0.5.1"
-playwright = "^1.45.0"
-pytest-json-ctrf = "^0.3.1"
-pytestomatio = "^2.5.3"
-pytest = "8.3.1"
+pytest-playwright = "^0.5.2"
+playwright = "^1.48.0"
+pytest-json-ctrf = "^0.3.5"
+pytestomatio = "2.8.1"
+pytest = "8.3.3"
 pytest-dotenv = "^0.5.2"
-faker = "^26.0.0"
+faker = "^30.8.1"
 pytest-xdist = "^3.6.1"
 pytest-base-url = "^2.1.0"
 
@@ -25,7 +25,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.pytest.ini_options]
 addopts = """
         --ctrf report.json -m 'not smoke' -n 5
-        --base_url https://www.saucedemo.com/
+        --base-url=https://www.saucedemo.com
         """
 
 testpaths = [

@@ -2,18 +2,18 @@ from .base_swag_lab_page import BaseSwagLabPage
 
 
 class InventoryPage(BaseSwagLabPage):
-    def __init__(self, page, base_url):
-        super().__init__(page, base_url)
+    def __init__(self, page):
+        super().__init__(page)
 
         self.url = '/inventory.html'
-        self.header_title = self.page.locator('.title')
-        self.inventory_items = self.page.locator('.inventory_item')
-        self.add_item_to_cart_btns = self.page.locator('[id^="add-to-cart"]')
-        self.inventory_items_name = self.page.locator('.inventory_item_name')
-        self.inventory_items_price = self.page.locator('.inventory_item_price')
-        self.inventory_items_description = self.page.locator('.inventory_item_desc')
-        self.sort = self.page.locator('.product_sort_container')
-        self.active_option = self.page.locator('.active_option')
+        self.header_title = page.locator('.title')
+        self.inventory_items = page.locator('.inventory_item')
+        self.add_item_to_cart_btns = page.locator('[id^="add-to-cart"]')
+        self.inventory_items_name = page.locator('.inventory_item_name')
+        self.inventory_items_price = page.locator('.inventory_item_price')
+        self.inventory_items_description = page.locator('.inventory_item_desc')
+        self.sort = page.locator('.product_sort_container')
+        self.active_option = page.locator('.active_option')
 
     def sort_items_by(self, value):
         self.page.select_option('.product_sort_container', value)
