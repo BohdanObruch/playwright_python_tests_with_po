@@ -1,29 +1,34 @@
-from typing import Generator
-
 import pytest
-from playwright.sync_api import Page, BrowserContext
+from playwright.sync_api import Page
 from playwright_tests_with_po.pages.login_page import LoginPage
 from playwright_tests_with_po.pages.inventory_page import InventoryPage
 from playwright_tests_with_po.pages.shopping_cart_page import ShoppingCartPage
 from playwright_tests_with_po.pages.base_swag_lab_page import BaseSwagLabPage
 from playwright_tests_with_po.pages.checkout_page import CheckoutPage
-
 from playwright_tests_with_po.test_data.credentials import standard_user
 
 
-@pytest.fixture(scope="session")
-def browser_context_args(browser_context_args):
-    return {
-        **browser_context_args,
-        "viewport": {"width": 1920, "height": 1080},
-    }
+def pytest_addoption(parser):
+    parser.addoption("--size", action="store", default="1920,1080", help="browser window size")
 
+@pytest.fixture(scope="session")
+def browser_context_args(browser_context_args, request):
+    device = request.config.getoption("--device")
+    if device:
+        return {
+            **browser_context_args
+        }
+    else:
+        width, height = map(int, request.config.getoption("--size").split(","))
+        return {
+            **browser_context_args,
+            "viewport": {"width": width, "height": height},
+        }
 
 @pytest.fixture(autouse=True)
 def page(page:Page):
     yield page
     page.close()
-
 
 
 @pytest.fixture
