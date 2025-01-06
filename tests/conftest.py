@@ -32,14 +32,14 @@ def browser_context_args(browser_context_args, request):
 
 
 @pytest.fixture(scope="function")
-def page(context: BrowserContext) -> Page:
+def page(context: BrowserContext):
     page = context.new_page()
     yield page
     page.close()
 
 
 @pytest.fixture(scope="function")
-def context(browser: Browser, browser_context_args) -> BrowserContext:
+def context(browser: Browser, browser_context_args):
     context = browser.new_context(**browser_context_args)
     yield context
     context.close()
